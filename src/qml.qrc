@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/TextApp.qml</file>
+        <file>qml/StartMenu.qml</file>
+    </qresource>
+</RCC>

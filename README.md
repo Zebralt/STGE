@@ -1,4 +1,4 @@
-# Projet txtg_01 : Details and ideas
+# Simple Text Game Engine
 
 ## Introduction
 
@@ -125,3 +125,5 @@ Defining variables, items, player data, booleans
 ### Qt and QML
 
 ### Applications
+
+This is a pet project, but you can use it if you feel like it.

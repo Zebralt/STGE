@@ -18,7 +18,7 @@ TextGame::TextGame()
 /// INTERNAL FUNCTIONS
 ///
 
-bool TextGame::load(std::string filepath) {
+bool TextGame::load(const std::string& filepath) {
     stringList elems = split(filepath, '.');
     if (elems.size() && elems[elems.size()-1] == GAME_FILE_EXTENSION) {
         return loadFromGameFile(filepath);
@@ -28,18 +28,19 @@ bool TextGame::load(std::string filepath) {
     }
 }
 
-bool TextGame::loadFromDirectory(std::string filepath) {
+bool TextGame::loadFromDirectory(const std::string& filepath) {
     stringList filelist = parseDir(filepath);
     if (std::find(filelist.begin(), filelist.end(), "config.ini") == filelist.end()) {
         println("Error : couldn't find " << filepath << "/config.ini");
         return false;
     }
-    std::map<std::string, stringList> file;
+
+    std::map<std::string, stringList> files;
     for (uint i=0;i<filelist.size();i++) {
         println("Parsing " << filepath << "/" << filelist[i]);
-        file[filelist[i]] = parseFile(filepath+"/"+filelist[i]);
+        files[filelist[i]] = parseFile(filepath+"/"+filelist[i]);
     }
-    bool b = (file.find("config.ini") != file.end() ? parseConfigurationFile(file["config.ini"]) : false);
+    bool b = (files.find("config.ini") != files.end() ? parseConfigurationFile(files["config.ini"]) : false);
 
     /// SPECIAL CASES
     ///
@@ -48,16 +49,16 @@ bool TextGame::loadFromDirectory(std::string filepath) {
         stringList unneededFiles = {"readme.md", "config.ini", "values.bo"};
         fileMap::const_iterator it;
         for (uint i=0;i < unneededFiles.size(); i++) {
-            it = file.find(unneededFiles[i]);
-            if (it != file.end()) file.erase(it);
+            it = files.find(unneededFiles[i]);
+            if (it != files.end()) files.erase(it);
         }
     }
 
-    b &= parseScenes(file);
+    b &= parseScenes(files);
     return b;
 }
 
-bool TextGame::parseConfigurationFile(stringList& content) {
+bool TextGame::parseConfigurationFile(const stringList& content) {
     int status = 0;
     for (uint i = 0; i<content.size(); i++) {
         std::string line = content[i];
@@ -68,9 +69,10 @@ bool TextGame::parseConfigurationFile(stringList& content) {
             case '[':
                 removeChar(line, '[');
                 removeChar(line, ']');
-                if (line == "General") status = PARSING_GENERAL;
-                else if (line == "Values") status = PARSING_VALUES;
-                else if (line == "Items") status = PARSING_ITEMS;
+                if      (line == "General") status =  PARSING_GENERAL;
+                else if (line == "Values") status =   PARSING_VALUES;
+                else if (line == "Items") status =    PARSING_ITEMS;
+                else status = 0;
                 continue;
                 break;
             case '#':
@@ -86,16 +88,20 @@ bool TextGame::parseConfigurationFile(stringList& content) {
             std::string name = elems[0];
             std::string val = elems[1];
             if (name == "title") {
-                self.title = QString(val.c_str());
+//                self.title = QString(val.c_str());
+                self.title = val;
             }
             else if (name == "author") {
-                self.author = QString(val.c_str());
+//                self.author = QString(val.c_str());
+                  self.author = val;
             }
             else if (name == "version") {
-                self.version = QString(val.c_str());
+//                self.version = QString(val.c_str());
+                  self.version = val;
             }
             else if (name == "date") {
-                self.date = QString(val.c_str());
+//                self.date = QString(val.c_str());
+                  self.date =  val;
             }
             else if (name == "first") {
                 self.first_scene = val;
@@ -122,7 +128,7 @@ bool TextGame::parseConfigurationFile(stringList& content) {
 
     return true;
 }
-bool TextGame::parseScenes(fileMap& files) {
+bool TextGame::parseScenes(const fileMap& files) {
     for (fileMap::const_iterator it = files.begin(); it != files.end(); ++it) {
         std::string file_name = it->first;
         stringList file_content = it->second;
@@ -136,27 +142,27 @@ bool TextGame::parseScenes(fileMap& files) {
     return true;
 }
 
-bool TextGame::loadFromGameFile(std::string filepath) {
-    filepath = "";
+bool TextGame::loadFromGameFile(const std::string& filepath) {
+//    filepath = "";
     return false;
 }
 
-bool TextGame::in_loadSavedGame(std::string filepath) {
-    filepath = "";
-
-    return false;
-}
-
-bool TextGame::in_saveGame(std::string path) {
-    path = "";
+bool TextGame::loadSavedGame(const std::string& filepath) {
+//    filepath = "";
 
     return false;
 }
 
-bool TextGame::in_save() {
+bool TextGame::saveGame(const std::string& path) {
+//    path = "";
+
+    return false;
+}
+
+bool TextGame::save() {
     // figure a filepath to save
     std::string filepath = "";
-    return in_saveGame(filepath);
+    return saveGame(filepath);
 }
 
 /*int input() {
@@ -180,21 +186,7 @@ void TextGame::run() {
     }
 }*/
 
-///
-/// EXPOSED FUNCTIONS
-///
 
-void TextGame::loadSavedGame(QString filepath) {
-    in_loadSavedGame(filepath.toStdString());
-}
-
-void TextGame::saveGame(QString filepath) {
-    in_saveGame(filepath.toStdString());
-}
-
-void TextGame::save() {
-    in_save();
-}
 
 /*
  *
@@ -213,9 +205,9 @@ void Game::run() {
     }
 }*/
 
-void TextGame::proceed(QString choice) {
-    println(choice.toStdString()); {
-        Choice c = current_scene->pick(choice.toStdString());
+void TextGame::proceed(const std::string& choice) {
+    println(choice); {
+        Choice& c = current_scene->pick(choice);
         println(c);
         current_scene = scenes[c.dest];
     }
@@ -231,42 +223,54 @@ void TextGame::update() {
         choices.clear();
     }
     else {
-        title = QString(current_scene->getTitle().c_str());
-        emit sceneTitleChanged();
-        std::cout << "title:" << title.toStdString() << std::endl;
+//        title = QString(current_scene->getTitle().c_str());
+        scene_title = current_scene->getTitle();
+//        emit sceneTitleChanged();
         previous_scene_text = scene_text;
-        emit previousSceneChanged();
-        scene_text = QString(current_scene->getText().c_str());
-        emit sceneChanged();
+//        emit previousSceneChanged();
+        scene_text = current_scene->getText();
+//        emit sceneChanged();
         choices.clear();
         std::vector<Choice>& scene_choices = current_scene->getChoices();
         for (uint i=0; i<scene_choices.size(); i++) {
-            choices << QString(scene_choices[i].name.c_str());
+//            choices << QString(scene_choices[i].name.c_str());
+            choices.push_back(scene_choices[i].name);
         }
         if (!scene_choices.size()) {
-           choices << "Next";
+            choices.push_back(" > ");
         }
-        emit choicesChanged();
+//        emit choicesChanged();
 
     }
     scene_counter++;
 }
 
 void TextGame::initialize() {
-    current_scene = scenes[first_scene];
+    if (scenes.find(first_scene) != scenes.end()) current_scene = scenes[first_scene];
     if (current_scene) {
-        println(current_scene->getText());
-        scene_text = QString(current_scene->getText().c_str());
+//        println(current_scene->getText());
+        scene_text = current_scene->getText();
+//        scene_text = QString(current_scene->getText().c_str());
         std::vector<Choice>& scene_choices = current_scene->getChoices();
         for (uint i=0; i<scene_choices.size(); i++) {
-            choices << QString(scene_choices[i].name.c_str());
+//            choices << QString(scene_choices[i].name.c_str());
+            choices.push_back(scene_choices[i].name);
         }
         scene_counter = 0;
-        scene_title = QString(current_scene->getTitle().c_str());
+//        scene_title = QString(current_scene->getTitle().c_str());
+        scene_title = current_scene->getTitle();
         println("initializing game");
     }
-    emit choicesChanged();
-    emit sceneChanged();
-    emit previousSceneChanged();
-    emit sceneTitleChanged();
+//    emit choicesChanged();
+//    emit sceneChanged();
+//    emit previousSceneChanged();
+//    emit sceneTitleChanged();
 }
+
+//void TextGame::generateDoc() {
+//    std::ofstream
+//    LOGDOC(ss, "#" << title);
+//    LOG("by " << author);
+//    LOG("v" << version << " released on " << date);
+//    LOG("")
+//}

@@ -24,22 +24,45 @@ typedef struct Triplet {
 
     friend std::ostream& operator<<(std::ostream& o, const Triplet& r);
 
+    Triplet() {
+
+    }
+
+    Triplet(std::string name, std::string dest, std::string requirement)
+    : name(name), dest(dest), requirement(requirement) {
+    }
+
+    Triplet(const Triplet& tri) {
+        name = tri.name;
+        dest = tri.dest;
+        requirement = tri.requirement;
+    }
+
+    Triplet& operator=(const Triplet& tri) {
+        if (this != &tri) {
+            this->dest = tri.dest;
+            this->name = tri.name;
+            this->requirement = tri.requirement;
+        }
+        return *this;
+    }
+
 } Choice, Dependency, Action;
 
 class Scene {
 public:
     Scene();
-    Scene(stringList&);
-    Scene(std::string filepath);
+    Scene(const stringList& content);
+    Scene(const std::string& filepath);
 
     // load scene from file
-    void loadFromFile(std::string);
+    void loadFromFile(const std::string& path);
 
     // load scene from text
-    void fromText(stringList&);
+    void fromText(const stringList&);
 
 
-    void setText(std::string t) {
+    void setText(const std::string& t) {
         text = t;
     }
 
@@ -48,10 +71,12 @@ public:
 
     // pick a choice
     Choice& pick(uint i);
-    Choice& pick(std::string str);
-    void addChoice(Choice);
-    void addDependency(Dependency);
-    void addAction(Action);
+    Choice& pick(const std::string& str);
+    void addChoice(const Choice& ch);
+    void addDependency(const Dependency& de);
+    void addAction(const Action& ac);
+
+    /// default choice
     Choice next;
 
     std::string getText() { return text; }
@@ -59,7 +84,7 @@ public:
     std::string getAuthor() { return author; }
     std::vector<Choice>& getChoices() { return choices; }
 
-    void setNext(std::string);
+    void setNext(const std::string& );
 
 private:
     std::vector<Dependency> dependencies;

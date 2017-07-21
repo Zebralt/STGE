@@ -21,6 +21,15 @@
 
 #define println(sstr) std::cout << sstr << std::endl
 
+#define META_LOGS 0
+#define ERROR_LOGS 0
+#define VERBOSE 1
+
+#define LOGMETA(sstr) if (VERBOSE && META_LOGS) println(sstr)
+#define LOGERROR(sstr) if (VERBOSE && ERROR_LOGS) println(sstr)
+#define LOG(sstr) if (VERBOSE) println(sstr)
+#define LOGDOC(o, sstr) o << sstr << std::endl
+
 /// TYPEDEFS
 ///
 ///

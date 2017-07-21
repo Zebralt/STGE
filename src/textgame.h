@@ -3,8 +3,6 @@
 
 #include "global.h"
 
-#include <QOBject>
-
 struct Sample {
     std::string str;
     int i;
@@ -19,17 +17,8 @@ struct Item {
 
 class Scene;
 
-class TextGame : public QObject {
-    Q_OBJECT
-    Q_PROPERTY(QString title MEMBER title)
-    Q_PROPERTY(QString author MEMBER author)
-    Q_PROPERTY(QString date MEMBER date)
-    Q_PROPERTY(QString version MEMBER version)
-    Q_PROPERTY(QString scene_title MEMBER scene_title NOTIFY sceneTitleChanged)
-    Q_PROPERTY(QString scene MEMBER scene_text NOTIFY sceneChanged)
-    Q_PROPERTY(QString previous_scene MEMBER previous_scene_text NOTIFY previousSceneChanged)
-    Q_PROPERTY(QStringList choices MEMBER choices NOTIFY choicesChanged)
-    Q_PROPERTY(int count MEMBER scene_counter)
+class TextGame {
+
 public:
     TextGame();
 
@@ -37,57 +26,43 @@ public:
     /// INTERNAL FUNCTIONS
     ///
 
-    // load from GAME_FILE_EXTENSION file
-    bool loadFromGameFile(std::string filepath);
+    /// \brief load from GAME_FILE_EXTENSION file
+    bool loadFromGameFile(const std::string& filepath);
 
-    // redirect to either above or below function
-    bool load(std::string filepath);
+    /// \brief redirect to either above or below function
+    bool load(const std::string& filepath);
 
     // load a directory and search for adequate files in it
-    bool loadFromDirectory(std::string path);
+    bool loadFromDirectory(const std::string& path);
 
     // parse cfg file content
-    bool parseConfigurationFile(stringList& content);
+    bool parseConfigurationFile(const stringList& content);
 
     // parse Scene files
-    bool parseScenes(fileMap& files);
+    bool parseScenes(const fileMap& files);
 
-    bool in_loadSavedGame(std::string path);
-    bool in_saveGame(std::string path);
+    bool loadSavedGame(const std::string& path);
+    bool saveGame(const std::string& path);
 
-    bool in_save();
+    bool save();
 
-    ///
-    /// EXPOSED FUNCTIONS
-    ///
+    void proceed(const std::string& choice);
 
-    Q_INVOKABLE void loadSavedGame(QString path);
-    Q_INVOKABLE void saveGame(QString path);
-    Q_INVOKABLE void save();
-
-    Q_INVOKABLE void proceed(QString choice);
-
-    Q_INVOKABLE void initialize();
+    void initialize();
 
     void update();
 
-signals:
-    void sceneChanged();
-    void previousSceneChanged();
-    void sceneTitleChanged();
-    void choicesChanged();
-
 private:
-    QString title;
-    QString version;
-    QString date;
-    QString author;
+    std::string title;
+    std::string version;
+    std::string date;
+    std::string author;
     std::string first_scene;
 
-    QString scene_text;
-    QString scene_title;
-    QString previous_scene_text;
-    QStringList choices;
+    std::string scene_text;
+    std::string scene_title;
+    std::string previous_scene_text;
+    std::vector<std::string> choices;
     int scene_counter;
 
     Scene* current_scene = nullptr;
@@ -104,5 +79,6 @@ private:
 
     TextGame& self = *this;
 };
+
 
 #endif // TEXTGAME_H

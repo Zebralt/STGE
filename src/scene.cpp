@@ -1,19 +1,19 @@
 #include "scene.h"
 #include "parser.hpp"
 
-Scene::Scene () {
+Scene::Scene() {
 
 }
 
-Scene::Scene(stringList& sl) {
+Scene::Scene(const stringList& sl) {
     fromText(sl);
 }
 
-Scene::Scene(std::string fp) {
+Scene::Scene(const std::string& fp) {
     loadFromFile(fp);
 }
 
-void Scene::loadFromFile(std::string fp) {
+void Scene::loadFromFile(const std::string& fp) {
     stringList content = parseFile(fp);
     fromText(content);
 }
@@ -39,10 +39,7 @@ Choice& Scene::pick(uint i) {
     }
 }
 
-Choice& Scene::pick(std::string str) {
-    if (str == "Next") {
-        return next;
-    }
+Choice& Scene::pick(const std::string& str) {
     for (uint i=0; i<choices.size(); i++) {
         if (choices[i].name == str) {
             return choices[i];
@@ -51,7 +48,7 @@ Choice& Scene::pick(std::string str) {
     return next;
 }
 
-void Scene::setNext(std::string path) {
+void Scene::setNext(const std::string& path) {
     next.dest = path;
 }
 
@@ -61,18 +58,23 @@ void Scene::setNext(std::string path) {
 //}
 
 
-void Scene::addChoice(Choice c) {
+void Scene::addChoice(const Choice& c) {
     println(title << "->new choice : " << c.name);
-    choices.push_back(c);
+    Choice d(c);
+    choices.push_back(d);
 }
 
-void Scene::addDependency(Dependency den) {
+void Scene::addDependency(const Dependency& den) {
     println(title << "->new dep : " << den.name);
-    dependencies.push_back(den);
+    Dependency pen(den);
+    dependencies.push_back(pen);
 }
 
-void Scene::addAction(Action a) {
-    actions.push_back(a);
+void Scene::addAction(const Action& a) {
+
+    Action act(a);
+
+    actions.push_back(act);
 }
 
 Requirement decodeRequirement(std::string str) {
@@ -98,7 +100,7 @@ Requirement decodeRequirement(std::string str) {
     }*/
 }
 
-void Scene::fromText(stringList& content) {
+void Scene::fromText(const stringList& content) {
     int status = 0;
     for (int i = 0; i<content.size(); i++) {
         std::string line = content[i];
@@ -109,11 +111,12 @@ void Scene::fromText(stringList& content) {
             case '[':
                 removeChar(line, '[');
                 removeChar(line, ']');
-                if (line == "General") println("PARSING GENERAL"), status = PARSING_GENERAL;
-                else if (line == "Content") println("PARSING CONTENT"), status = PARSING_CONTENT;
-                else if (line == "Dependencies") println("PARSING DEP"), status = PARSING_DEPENDENCIES;
-                else if (line == "Choices") println("PARSING CHOICES"), status = PARSING_CHOICES;
-                else if (line == "Actions") println("PARSING ACTIONS"), status = PARSING_ACTIONS;
+                if      (line == "General") status =      PARSING_GENERAL;
+                else if (line == "Content") status =      PARSING_CONTENT;
+                else if (line == "Dependencies") status = PARSING_DEPENDENCIES;
+                else if (line == "Choices") status =      PARSING_CHOICES;
+                else if (line == "Actions") status =      PARSING_ACTIONS;
+                else status = 0;
                 continue;
                 break;
             case '#':
@@ -122,6 +125,7 @@ void Scene::fromText(stringList& content) {
                 break;
             default:break;
         }
+
         if (status == PARSING_GENERAL) {
             stringList elems = split(line, '=');
             std::string name = elems[0];
@@ -133,21 +137,24 @@ void Scene::fromText(stringList& content) {
                 this->author = val;
             }
         }
+
         if (status == PARSING_CONTENT) {
             this->text += line + '\n';
         }
+
         if (status == PARSING_DEPENDENCIES) {
             if (containsChar(line, ":")) {
                 stringList elems = split(line, ':');
                 std::string requirement = elems[0];
                 stringList rval = getWords(elems[1]);
                 std::string dest = rval[0];
-                addDependency({"", dest, requirement});
+                addDependency(Dependency("", dest, requirement));
             }
             else {
-                addDependency({"", line, ""});
+                addDependency(Dependency("", line, ""));
             }
         }
+
         if (status == PARSING_CHOICES) {
             // that works
             if (containsChar(line, ":=")) {
@@ -156,8 +163,9 @@ void Scene::fromText(stringList& content) {
                 stringList rval = getWords(elems[1]);
                 std::string choice_name = rval[0];
                 std::string filepath = rval[1];
-                addChoice({choice_name, filepath, requirement});
+                addChoice(Choice(choice_name, filepath, requirement));
             }
+
             else {
                 stringList elems = getWords(line);
                 if (elems.size() == 1) {
@@ -167,19 +175,20 @@ void Scene::fromText(stringList& content) {
                 else if (elems.size() > 1) {
                     std::string name = elems[0];
                     std::string filename = elems[1];
-                    addChoice({name, filename, ""});
+                    addChoice(Choice(name, filename, ""));
                 }
             }
         }
+
         if (status == PARSING_ACTIONS) {
             if (containsChar(line, ":")) {
                 stringList elems = split(line, ':');
                 std::string requirement = elems[0];
                 std::string dest = elems[1];
-                addAction({"", dest, requirement});
+                addAction(Action("", dest, requirement));
             }
             else {
-                addAction({"", line, ""});
+                addAction(Action("", line, ""));
             }
         }
     }

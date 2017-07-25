@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "textgame.h"
+class TextGame;
 
 /// INTERFACE BETWEEN MODEL AND Qt (yeah, MVC ...)
 
@@ -40,7 +40,7 @@ public:
   QString version();
   QString previousSceneText();
   QStringList choices();
-  QString sceneCount();
+  int sceneCount();
 
 signals:
   void sceneChanged();

@@ -20,6 +20,11 @@ void TextGameController::proceed(const QString& str) {
 
 void TextGameController::initialize() {
   if (master) master->initialize();
+
+  emit choicesChanged();
+  emit sceneChanged();
+  emit previousSceneChanged();
+  emit sceneTitleChanged();
 }
 
 void TextGameController::loadSavedGame(const QString& path) {
@@ -66,7 +71,7 @@ QStringList TextGameController::choices() {
     QStringList qsl;
 
     for (auto& a : master->choices) {
-      qsl << a;
+      qsl << QString(a.c_str());
     }
 
     return qsl;

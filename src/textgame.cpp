@@ -2,6 +2,8 @@
 #include "parser.hpp"
 #include "scene.h"
 
+#include <algorithm>
+
 /// CONSTRUCTOR
 
 TextGame::TextGame()

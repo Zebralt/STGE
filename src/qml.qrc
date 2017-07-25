@@ -3,5 +3,19 @@
         <file>qml/main.qml</file>
         <file>qml/TextApp.qml</file>
         <file>qml/StartMenu.qml</file>
+        <file>qml/StatPanel.qml</file>
+        <file>../resources/Latin-Modern-Roman/GUST e-foundry License.txt</file>
+        <file>../resources/Latin-Modern-Roman/lmroman10-bold.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmroman10-bolditalic.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmroman10-italic.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmroman10-regular.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmromancaps10-oblique.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmromancaps10-regular.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmromandemi10-oblique.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmromandemi10-regular.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmromandunh10-oblique.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmromandunh10-regular.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmromanslant10-bold.otf</file>
+        <file>../resources/Latin-Modern-Roman/lmromanslant10-regular.otf</file>
     </qresource>
 </RCC>

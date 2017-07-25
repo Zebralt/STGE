@@ -16,6 +16,7 @@ struct Item {
 };
 
 class Scene;
+class TextGameController;
 
 class TextGame {
 
@@ -78,6 +79,8 @@ private:
     } data;
 
     TextGame& self = *this;
+
+    friend class TextGameController;
 };
 
 

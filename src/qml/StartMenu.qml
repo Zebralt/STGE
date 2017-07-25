@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.0
 import textGame 1.0
 
 Item {
+    id: startmenu
 
     anchors.fill: parent
 
@@ -20,8 +21,6 @@ Item {
         id: header
         height: 50
         width: parent.width
-
-        currentIndex: view.currentIndex
 
         TabButton {
             text: "Main"
@@ -59,6 +58,9 @@ Item {
                 Button {
 
                     text:"Continue"
+                    onClicked: {
+                        startmenu.visible = false
+                    }
                 }
 
                 Button {
@@ -71,29 +73,22 @@ Item {
 
                 Button {
                     text: "Options"
-                }Button {
+                }
+
+                Button {
                     text:"next"
-                    onClicked: view.currentIndex= view.currentIndex + 1
+//                    onClicked: view.currentIndex= view.currentIndex + 1
                 }
             }
         }
 
         Rectangle {
             color:"red"
-            Button {
-                text:"next"
-                onClicked: view.currentIndex= view.currentIndex + 1
-            }
         }
 
         Rectangle {
-            color:"green"
-            Button {
-                      text:"next"
-                      onClicked: view.currentIndex= view.currentIndex < view.count ? view.currentIndex +1 : 0
-                  }
+            color:"lightgreen"
         }
-
     }
 
 //    PageIndicator {

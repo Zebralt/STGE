@@ -17,5 +17,17 @@
         <file>../resources/Latin-Modern-Roman/lmromandunh10-regular.otf</file>
         <file>../resources/Latin-Modern-Roman/lmromanslant10-bold.otf</file>
         <file>../resources/Latin-Modern-Roman/lmromanslant10-regular.otf</file>
+        <file>../scenes/beginning.sc</file>
+        <file>../scenes/config.ini</file>
+        <file>../scenes/ndoor.sc</file>
+        <file>../scenes/ndoor_havekey.sc</file>
+        <file>../scenes/ndoor_nokey.sc</file>
+        <file>../scenes/nstand.sc</file>
+        <file>../scenes/nwindow.sc</file>
+        <file>../scenes/readme.md</file>
+        <file>../scenes/room.sc</file>
+        <file>../scenes/sing.sc</file>
+        <file>../scenes/start.sc</file>
+        <file>../scenes/values.bo</file>
     </qresource>
 </RCC>

@@ -8,7 +8,7 @@
 
 TextGame::TextGame()
 {
-    if (load("D:/textgame_data")) {
+    if (load("C:/Users/Bralt/Documents/projects/qt_textgame/scenes")) {
         println("Game was successfully loaded");
     }
     else {

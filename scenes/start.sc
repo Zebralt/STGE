@@ -3,9 +3,18 @@ title=start
 id=001
 
 [Content]
-Hello  {{player_name}}! now, it is time to begin. Wake up, hero! Cogiton Ergosum
-Cogito Ergosum
-Cogito Ergosum
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+Hello  {{player_name}}! now, it is time to begin. Wake up, hero!
+
 
 [Dependencies]
 start.sc

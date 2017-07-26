@@ -102,66 +102,66 @@ private:
 ///
 ///
 
-class Value {
-  std::string name;
-  std::string type;
+//class Value {
+//  std::string name;
+//  std::string type;
 
-  union {
-    char* str;
-    int i;
-    float f;
-  } data;
-};
+//  union {
+//    char* str;
+//    int i;
+//    float f;
+//  } data;
+//};
 
-class Item {
-  int id;
-  std::string name;
-  std::string code;
+//class Item {
+//  int id;
+//  std::string name;
+//  std::string code;
 
-  std::vector<Value> stats;
-};
+//  std::vector<Value> stats;
+//};
 
-class DataCategory {
-  int id;
-  std::string name;
+//class DataCategory {
+//  int id;
+//  std::string name;
 
-  std::vector<std::string, Value> items;
+//  std::vector<std::string, Value> items;
 
-};
+//};
 
-class MockTextGame {
-public:
-  MockTextGame();
+//class MockTextGame {
+//public:
+//  MockTextGame();
 
-  bool loadGame(std::string);
-  bool loadPlayerData(std::string);
-  bool savePlayerData(std::string);
+//  bool loadGame(std::string);
+//  bool loadPlayerData(std::string);
+//  bool savePlayerData(std::string);
 
-  bool proceed(std::string);
-  bool proceed(int);
+//  bool proceed(std::string);
+//  bool proceed(int);
 
-  void update();
+//  void update();
 
-private:
+//private:
 
-  /// GAME DATA
+//  /// GAME DATA
 
-  std::vector<std::string, Item> item_registry;
-  std::vector<std::string, Value> game_values;
+//  std::vector<std::string, Item> item_registry;
+//  std::vector<std::string, Value> game_values;
 
-  std::vector<std::string, ItemModel> item_models;
+//  std::vector<std::string, ItemModel> item_models;
 
-  /// PLAYER DATA
-  ///
-  std::vector<std::string, DataCategory> categories;
+//  /// PLAYER DATA
+//  ///
+//  std::vector<std::string, DataCategory> categories;
 
-  std::vector<Item, int> inventory;
+//  std::vector<Item, int> inventory;
 
-  std::vector<Slot, Item> equipment;
+//  std::vector<Slot, Item> equipment;
 
-  std::vector<std::string, Value> player_values;
+//  std::vector<std::string, Value> player_values;
 
-};
+//};
 
 
 #endif // TEXTGAME_H

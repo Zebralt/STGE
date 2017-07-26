@@ -1,11 +1,10 @@
 [General]
-title=start
+title=Looking through the window
 id=001
 
 [Content]
-Hello ! now, it is time to begin. Wake up, hero!
+You walk to the window and look outside.
+The sky is gray. Your vision is blocked by what seems to be greasy-looking, black smoke.
 
 [Choices]
-(Window) goto 02.sc
-(Door) goto 03.sc
-(Nightstand) goto 04.sc
+room.sc

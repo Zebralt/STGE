@@ -1,11 +1,9 @@
 [General]
-title=start
+title=The door
 id=001
 
 [Content]
-Hello ! now, it is time to begin. Wake up, hero!
+You walk to the door and try to find a handle, but you don't see any. You carefully examine the door, but you don't see any mechanisms that would allow you to open it. The door seems to be a one-way in.
 
 [Choices]
-(Window) goto 02.sc
-(Door) goto 03.sc
-(Nightstand) goto 04.sc
+room.sc

@@ -1,11 +1,12 @@
 [General]
-title=start
+title=Gloomy Room
 id=001
 
 [Content]
-Hello ! now, it is time to begin. Wake up, hero!
+You stand in the cold, dark room, shivering.
 
 [Choices]
-(Window) goto 02.sc
-(Door) goto 03.sc
-(Nightstand) goto 04.sc
+Window nwindow.sc
+Door ndoor.sc
+Nightstand nstand.sc
+Song sing.sc

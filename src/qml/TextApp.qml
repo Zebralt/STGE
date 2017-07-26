@@ -48,13 +48,13 @@ Item {
         id: content
 
         anchors.fill: parent
-        color: "lightblue"
         anchors.margins: 5
 
         Column {
 
             anchors.fill: parent
             anchors.margins: 1
+            spacing: 2
 
             Rectangle {
                 height: 25
@@ -109,29 +109,53 @@ Item {
                         text: textGame.scene
                         height: parent.height
                         width: parent.width/2
+                        anchors.centerIn: parent
+
 //                        font.family: latinfl.name
 //                        font.pointSize: 12
+
+
                     }
                 }
             }
 
             Row {
                 spacing: 2
+
                 Repeater {
                     id:lview
 
                     model: textGame.choices
 
                     Button {
+                        id: control
+
                         text: modelData
                         onClicked: {
                             pick(text)
                         }
+
+                        contentItem: Text {
+                            text: control.text
+                            font: control.font
+                            opacity: enabled ? 1.0 : 0.3
+//                            color: control.down ? "#17a81a" : "#21be2b"
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            elide: Text.ElideRight
+                        }
+
+                        background: Rectangle {
+                            implicitWidth: 100
+                            opacity: enabled ? 1 : 0.3
+//                            border.color: control.down ? "#17a81a" : "#21be2b"
+                            border.color: "#ddd"
+                            border.width: 1
+                            radius: 2
+                        }
                     }
                 }
             }
-
-
         }
     }
 }

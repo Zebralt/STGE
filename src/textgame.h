@@ -3,6 +3,9 @@
 
 #include "global.h"
 
+#define DEAD_END 0
+#define RUNNING  1
+
 struct Sample {
     std::string str;
     int i;
@@ -49,9 +52,17 @@ public:
 
     void proceed(const std::string& choice);
 
+    void proceed(const int& choice);
+
     void initialize();
 
     void update();
+
+    void display();
+
+    void scene();
+
+    bool running();
 
 private:
     std::string title;
@@ -65,6 +76,8 @@ private:
     std::string previous_scene_text;
     std::vector<std::string> choices;
     int scene_counter;
+
+    short status = RUNNING;
 
     Scene* current_scene = nullptr;
 
@@ -81,6 +94,73 @@ private:
     TextGame& self = *this;
 
     friend class TextGameController;
+};
+
+/////////////
+///
+///
+///
+///
+
+class Value {
+  std::string name;
+  std::string type;
+
+  union {
+    char* str;
+    int i;
+    float f;
+  } data;
+};
+
+class Item {
+  int id;
+  std::string name;
+  std::string code;
+
+  std::vector<Value> stats;
+};
+
+class DataCategory {
+  int id;
+  std::string name;
+
+  std::vector<std::string, Value> items;
+
+};
+
+class MockTextGame {
+public:
+  MockTextGame();
+
+  bool loadGame(std::string);
+  bool loadPlayerData(std::string);
+  bool savePlayerData(std::string);
+
+  bool proceed(std::string);
+  bool proceed(int);
+
+  void update();
+
+private:
+
+  /// GAME DATA
+
+  std::vector<std::string, Item> item_registry;
+  std::vector<std::string, Value> game_values;
+
+  std::vector<std::string, ItemModel> item_models;
+
+  /// PLAYER DATA
+  ///
+  std::vector<std::string, DataCategory> categories;
+
+  std::vector<Item, int> inventory;
+
+  std::vector<Slot, Item> equipment;
+
+  std::vector<std::string, Value> player_values;
+
 };
 
 

@@ -59,13 +59,13 @@ void Scene::setNext(const std::string& path) {
 
 
 void Scene::addChoice(const Choice& c) {
-    println(title << "->new choice : " << c.name);
+//    println(title << "->new choice : " << c.name);
     Choice d(c);
     choices.push_back(d);
 }
 
 void Scene::addDependency(const Dependency& den) {
-    println(title << "->new dep : " << den.name);
+//    println(title << "->new dep : " << den.name);
     Dependency pen(den);
     dependencies.push_back(pen);
 }
@@ -73,7 +73,6 @@ void Scene::addDependency(const Dependency& den) {
 void Scene::addAction(const Action& a) {
 
     Action act(a);
-
     actions.push_back(act);
 }
 
@@ -98,6 +97,35 @@ Requirement decodeRequirement(std::string str) {
         // create requirement
         elems = getWords(elems[1]);
     }*/
+
+  /// Exemples :
+  ///
+  /// if BOOL
+  /// if VALUE > 0
+  /// if VALUE == 3
+  /// if HAVEITEM <item_code>
+  ///
+  ///
+  /// grammaire (a desambiguer) :
+  ///
+  /// cond: if T
+  ///
+  /// T: VALUE
+  /// | VALUE comp_op INT
+  /// | VALUE comp_op VALUE
+  /// | VALUE equals_op STRING
+  /// | haveitem ITEMCODE
+  /// | T AND T
+  /// | T OR T
+  ///
+  /// VALUE: SKILL
+  /// | VARIABLE
+  /// | STAT
+  ///
+  /// SKILL: skill.VALUE
+  ///
+  /// STAT: stat.VALUE
+  ///
 }
 
 void Scene::fromText(const stringList& content) {

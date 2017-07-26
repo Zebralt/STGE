@@ -1,0 +1,115 @@
+# Declaring a game :
+
+alias int: integer # for this file only
+
+# names : abc_def will give the name : Abc def, whereas hyphens will be preserved
+
+#
+# Game data
+#
+
+Game {
+  title: Dark Souls Moc Skyrim
+  author: Escanp
+  version: v1.2
+  release: 10.10.2017  
+}
+
+Values {
+  
+}
+
+# to create game items with specific stats (not inventory-like items), like spells for example
+# this is only the game data, to know whether the player has mastered those spells,
+# use a value category
+DataItems {
+  Spell {
+    code: magic_arrow
+    name: Magic Arrow
+  }
+}
+
+#
+# Player data
+#
+
+PlayerStats {
+  string name
+  
+  int strength
+  int dexterity
+  int attunement
+  int intellect
+  int faith
+  int endurance
+  int vitality
+  int vigor
+}
+
+PlayerValueCategory {
+  name: skills
+  show_all: false # ideally, show a stat only if it's relevant (above 0)
+  visible: true # visible to the player
+  
+
+  int lockpicking
+  int sneak
+  int pickpocket
+  int persuasion
+
+  int one-handed
+  int two-handed
+  int bare-handed
+
+  int destruction
+  int restoration
+  int conjuration
+  int illusion
+}
+
+PlayerValueCategory {
+  name: judgments
+  visible: false # the player does not need to be aware of those stats
+  
+  int piety
+  int ruthlessness
+  int righteousness
+
+}
+
+# this can be used, but only to register whether the player has unlocked a particular spell
+PlayerCategory {
+  name: spells
+  
+  bool magic_arrow
+  bool great_magic_arrow
+  
+  bool fire_orb
+  bool fireball
+  
+  bool bountiful_light
+  bool heal_1
+}
+
+PlayerValues {
+  # if you want to set values at the prehense of the game
+  
+  
+}
+
+PlayerEquipment {
+  # here, you declare equipment slots, with a name and a type of object allowed in this slot
+  # slot <name> <type>[s ? wip]
+  slot head helmet
+  slot hands gloves
+  slot ring_1 ring
+  slot ring_2 ring
+  slot ring_3 ring
+  slot ring_4 ring
+  slot body shirt
+  slot legs pants
+  
+  # how to disable a slot with another ? in the code i think
+  slot right_hand weapon
+  slot left_hand weapon
+}

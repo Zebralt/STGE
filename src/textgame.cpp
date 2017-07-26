@@ -216,6 +216,14 @@ void TextGame::proceed(const std::string& choice) {
     update();
 }
 
+void TextGame::proceed(const int& choice) {
+  Choice& c = current_scene->pick(choice);
+  println(c);
+  current_scene = scenes[c.dest];
+
+  update();
+}
+
 void TextGame::update() {
     if (!current_scene) {
         std::cout << "scene is empty ..." << std::endl;
@@ -223,6 +231,7 @@ void TextGame::update() {
         previous_scene_text = scene_text;
         scene_text = "There is no scene here";
         choices.clear();
+        status = DEAD_END;
     }
     else {
 //        title = QString(current_scene->getTitle().c_str());
@@ -276,3 +285,24 @@ void TextGame::initialize() {
 //    LOG("v" << version << " released on " << date);
 //    LOG("")
 //}
+
+void TextGame::display() {
+  println("title=" << title);
+  if (author.length()) println("by " << author);
+  println("version=" << version << "; " << date);
+  println("This game contains " << scenes.size() << " scenes.");
+}
+
+void TextGame::scene() {
+  println("scene=" << scene_title);
+  println("\n" << scene_text);
+  println("\n");
+  int i = 0;
+  for (auto& a : choices) {
+    println(i++ << ". " << a);
+  }
+}
+
+bool TextGame::running() {
+  return status == RUNNING;
+}

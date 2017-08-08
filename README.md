@@ -55,8 +55,6 @@ As aforementioned, you can use variables in your content. Either you want to dis
 
 Syntax is still up for debate :
 * `{{player_name}}`
-    * nested list a
-    * lested list b
 * `$player_name`
 
 Another idea could be to allow you to declare scene variables, whose scope would then encompass the scene and its included scenes (not its children) but it is not a feature for now. Wondering how useful that could be ...
@@ -94,9 +92,9 @@ or maybe just load the scene ressources and all its childs', and so on. Or just 
 
 ### Additional info
 
-Position and layout of the text
-Position and layout of the images
-Animations ?
+* Position and layout of the text
+* Position and layout of the images
+* Animations ?
 
 ## Player Data
 

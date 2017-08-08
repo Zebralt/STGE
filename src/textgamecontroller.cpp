@@ -1,6 +1,7 @@
 
 #include "textgamecontroller.h"
 #include "textgame.h"
+#include "mktohtml/mk.h"
 
 /// CONTROLLER
 
@@ -81,4 +82,11 @@ int TextGameController::sceneCount() {
     return master->scene_counter;
 }
 
+QString TextGameController::convertToHtml(const QString& str) {
+  mk::MarkdownToHtml mdth;
+  return QString(mdth.convertToHtml(str.toStdString()).c_str());
+}
 
+//QString convertToHtml(const QString& str) {
+
+//}

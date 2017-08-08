@@ -32,6 +32,13 @@ public:
   Q_INVOKABLE void proceed(const QString& choice);
   Q_INVOKABLE void initialize();
 
+  /// mk mirror
+  ///
+  Q_INVOKABLE QString convertToHtml(const QString& str);
+//    std::string convertToHtml(const std::string& str, const std::string& stylefilepath);
+
+  ///
+
   QString title();
   QString sceneText();
   QString sceneTitle();

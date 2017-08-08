@@ -3,7 +3,7 @@ title=It's in the rain
 id=030
 
 [Content]
-You hear a delicate song.
+_You hear a delicate song._
  
 _Everytime the rain comes down
 Close my eyes and listen

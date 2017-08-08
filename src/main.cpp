@@ -3,6 +3,7 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,9 @@ int main(int argc, char *argv[])
     ///
 
     QQmlApplicationEngine engine;
+
+    QQmlContext* context = engine.rootContext();
+
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
 
     return app.exec();

@@ -2,6 +2,7 @@
 #include "parser.hpp"
 #include "qtparser.h"
 #include "scene.h"
+#include "mktohtml/mk.h"
 
 #include <algorithm>
 
@@ -10,9 +11,17 @@
 TextGame::TextGame()
 {
 //    if (load("C:/Users/Bralt/Documents/projects/qt_textgame/scenes")) {
-    println(qrc::figurePath("qrc:../scenes"));
+//    println(qrc::figurePath("qrc:../scenes"));
 
-    if (load("qrc:/../scenes")) {
+    std::string path;
+
+    #ifdef WIN32
+      path = "C:/Users/Bralt/Documents/projects/qt_textgame/scenes";
+    #else
+      path = "../stge/scenes";
+    #endif
+
+    if (load(path)) {
         println("Game was successfully loaded");
     }
     else {

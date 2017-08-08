@@ -29,5 +29,6 @@
         <file>../scenes/sing.sc</file>
         <file>../scenes/start.sc</file>
         <file>../scenes/values.bo</file>
+        <file>qml/TextEditor.qml</file>
     </qresource>
 </RCC>

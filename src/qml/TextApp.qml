@@ -10,7 +10,7 @@ Item {
 
     onTextChanged: {
 //        glyphText.text = text.charAt(0)
-        contentText.text = text
+        contentText.text = textGame.convertToHtml(text)
     }
 
     anchors.fill: parent
@@ -48,13 +48,11 @@ Item {
         id: content
 
         anchors.fill: parent
-        anchors.margins: 5
 
         Column {
 
             anchors.fill: parent
             anchors.margins: 1
-            spacing: 2
 
             Rectangle {
                 height: 25
@@ -102,21 +100,37 @@ Item {
 //                        height: parent.height
 //                    }
 
-                    Text {
-                        id: contentText
+//                    Text {
+//                        id: contentText
 
-                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                        text: textGame.scene
-                        height: parent.height
-                        width: parent.width/2
-                        anchors.centerIn: parent
+//                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+//                        text: textGame.scene
+//                        height: parent.height
+//                        width: parent.width/2
+//                        anchors.centerIn: parent
 
-//                        font.family: latinfl.name
-//                        font.pointSize: 12
+////                        font.family: latinfl.name
+////                        font.pointSize: 12
 
 
-                    }
+//                    }
+
+                      TextEditor {
+                          id: contentText
+
+//                          text: mktohtml.convertToHtml(textGame.scene)
+                          textFormat: Text.RichText
+                          height: parent.height
+                          width: parent.width/2
+                          anchors.centerIn: parent
+                      }
                 }
+            }
+
+            Rectangle {
+              height: 4
+              width: parent.width
+              color: "transparent"
             }
 
             Row {

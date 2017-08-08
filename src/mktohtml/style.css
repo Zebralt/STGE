@@ -1,0 +1,21 @@
+html {
+  background-color: #333;
+}
+
+body {
+  width: 1000px;
+  padding: 30px;
+  margin: 1% auto;
+  box-shadow: 0 0 3px black;
+  background-color: white;
+  
+}
+
+h1 {
+  display: block;
+  margin: 0 auto;
+  color: white;
+  font-family: Calibri;
+  padding: 10px;
+  background-color: #222;
+}

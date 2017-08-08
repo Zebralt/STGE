@@ -7,9 +7,8 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <dirent.h>
 #include <cstring>
-
+#include <dirent.h>
 
 /// PARSER FLAGS
 

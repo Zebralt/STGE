@@ -1,5 +1,6 @@
 #include "textgame.h"
 #include "parser.hpp"
+#include "qtparser.h"
 #include "scene.h"
 
 #include <algorithm>
@@ -8,7 +9,10 @@
 
 TextGame::TextGame()
 {
-    if (load("C:/Users/Bralt/Documents/projects/qt_textgame/scenes")) {
+//    if (load("C:/Users/Bralt/Documents/projects/qt_textgame/scenes")) {
+    println(qrc::figurePath("qrc:../scenes"));
+
+    if (load("qrc:/../scenes")) {
         println("Game was successfully loaded");
     }
     else {

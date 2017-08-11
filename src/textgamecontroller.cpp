@@ -83,8 +83,9 @@ int TextGameController::sceneCount() {
 }
 
 QString TextGameController::convertToHtml(const QString& str) {
-  mk::MarkdownToHtml mdth;
-  return QString(mdth.convertToHtml(str.toStdString()).c_str());
+//  mk::MarkdownToHtml mdth;
+//  return QString(mdth.convertToHtml(str.toStdString()).c_str());
+  return str;
 }
 
 //QString convertToHtml(const QString& str) {

@@ -57,20 +57,21 @@ Item {
             Rectangle {
                 height: 25
                 width: parent.width
-                color: "#DDD"
+//                color: "#DDD"
 
                 Text {
                     id: titleText
                     text: textGame.scene_title
 //                    font.family: latinfl.name
                     anchors.centerIn: parent
+                    font.pointSize: 10
                 }
             }
 
             Rectangle {
                width: parent.width
                height: 400
-               color: "#EEE"
+//               color: "#EEE"
                 Row {
                     anchors.fill: parent
                     anchors.margins: 10
@@ -119,9 +120,9 @@ Item {
                           id: contentText
 
 //                          text: mktohtml.convertToHtml(textGame.scene)
-                          textFormat: Text.RichText
+//                          textFormat: Text.RichText
                           height: parent.height
-                          width: parent.width/2
+                          width: parent.width  - 100
                           anchors.centerIn: parent
                       }
                 }

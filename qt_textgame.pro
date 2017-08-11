@@ -7,14 +7,20 @@ SOURCES += \
     src/parser.cpp \
     src/scene.cpp \
     src/textgame.cpp \
-    src/textgamecontroller.cpp
+    src/textgamecontroller.cpp \
+    src/qtparser.cpp \
+    src/mktohtml/mk.cpp \
+    src/mktohtml/mktohtml.cpp \
+    src/mktohtml/newmk.cpp
 
 HEADERS += \
     src/global.h \
     src/parser.hpp \
     src/scene.h \
     src/textgame.h \
-    src/textgamecontroller.h
+    src/textgamecontroller.h \
+    src/qtparser.h \
+    src/mktohtml/mk.h \
 
 RESOURCES += \
     src/qml.qrc
